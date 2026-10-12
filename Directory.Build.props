@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <!-- Path to your BONELAB install (the folder containing BONELAB_Steam_Windows64.exe).
+         Override with: dotnet build -p:BonelabPath="E:\Games\BONELAB" -->
+    <BonelabPath Condition="'$(BonelabPath)' == ''">D:\SteamLibrary\steamapps\common\BONELAB</BonelabPath>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+</Project>

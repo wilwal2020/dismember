@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>Dismember</AssemblyName>
+    <RootNamespace>Dismember</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>embedded</DebugType>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <Version>0.1.0</Version>
+    <!-- dotnet build -p:Deploy=true copies Dismember.dll into BONELAB\Mods -->
+    <Deploy Condition="'$(Deploy)' == ''">false</Deploy>
+    <NoWarn>$(NoWarn);CS1591;NU1903</NoWarn>
+    <ML>$(BonelabPath)\MelonLoader\net6</ML>
+    <IL>$(BonelabPath)\MelonLoader\Il2CppAssemblies</IL>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="MelonLoader"><HintPath>$(ML)\MelonLoader.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(ML)\0Harmony.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2CppInterop.Runtime"><HintPath>$(ML)\Il2CppInterop.Runtime.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2CppInterop.Common"><HintPath>$(ML)\Il2CppInterop.Common.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="AssetsTools.NET"><HintPath>$(ML)\AssetsTools.NET.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2Cppmscorlib"><HintPath>$(IL)\Il2Cppmscorlib.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2CppSystem"><HintPath>$(IL)\Il2CppSystem.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(IL)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.PhysicsModule"><HintPath>$(IL)\UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule"><HintPath>$(IL)\UnityEngine.ParticleSystemModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.AnimationModule"><HintPath>$(IL)\UnityEngine.AnimationModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.AudioModule"><HintPath>$(IL)\UnityEngine.AudioModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2CppSLZ.Marrow"><HintPath>$(IL)\Il2CppSLZ.Marrow.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Il2CppUniTask"><HintPath>$(IL)\Il2CppUniTask.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BoneLib"><HintPath>$(BonelabPath)\Mods\BoneLib.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <Target Name="DeployToGame" AfterTargets="Build" Condition="'$(Deploy)' == 'true'">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(BonelabPath)\Mods" />
+    <Message Importance="high" Text="Deployed $(TargetFileName) to $(BonelabPath)\Mods" />
+  </Target>
+</Project>
